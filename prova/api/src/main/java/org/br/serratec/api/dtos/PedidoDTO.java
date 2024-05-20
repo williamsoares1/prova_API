@@ -1,15 +1,18 @@
 package org.br.serratec.api.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import org.br.serratec.api.entity.Cliente;
 import org.br.serratec.api.entity.Pedido;
+import org.br.serratec.api.entity.Produto;
 
 public record PedidoDTO(Long id,
         LocalDate data_expedicao,
-        Long id_cliente,
-        Long id_produto) {
+        Cliente cliente,
+        List<Produto> produtos) {
 
     public Pedido toEntity() {
-        return new Pedido(this.id, this.data_expedicao, this.id_cliente, this.id_produto);
+        return new Pedido(this.id, this.data_expedicao, this.cliente, this.produtos);
     }
 }

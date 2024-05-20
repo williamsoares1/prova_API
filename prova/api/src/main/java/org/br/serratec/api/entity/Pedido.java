@@ -1,67 +1,83 @@
 package org.br.serratec.api.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.br.serratec.api.dtos.PedidoDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pedido")
 public class Pedido {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_pedido") Long id;
-    private LocalDate data_expedicao;
-    private Long id_cliente;
-    private Long id_produto;
+    private LocalDate dataExpedicao;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "produto_pedido",
+    joinColumns = @JoinColumn(name = "id_pedido"),
+    inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    private List<Produto> produtos;
 
     public Pedido(){}
 
-    public Pedido(Long id, LocalDate data_expedicao, Long id_cliente, Long id_produto) {
+    public Pedido(Long id, LocalDate dataExpedicao, Cliente cliente, List<Produto> produtos) {
         super();
         this.id = id;
-        this.data_expedicao = data_expedicao;
-        this.id_cliente = id_cliente;
-        this.id_produto = id_produto;
+        this.dataExpedicao = dataExpedicao;
+        this.cliente = cliente;
+        this.produtos = produtos;
     }
 
     public Long getId() {
         return id;
     }
 
-    public LocalDate getData_expedicao() {
-        return data_expedicao;
+    public LocalDate getDataExpedicao() {
+        return dataExpedicao;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public Long getId_produto() {
-        return id_produto;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public void setData_expedicao(LocalDate data_expedicao) {
-        this.data_expedicao = data_expedicao;
+    public void setDataExpedicao(LocalDate dataExpedicao) {
+        this.dataExpedicao = dataExpedicao;
     }
 
-    public void setId_produto(Long id_produto) {
-        this.id_produto = id_produto;
+    public void setProduto(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public PedidoDTO toDTO(){
-        return new PedidoDTO(this.id, this.data_expedicao, this.id_cliente, this.id_produto);
+        return new PedidoDTO(this.id, this.dataExpedicao, this.cliente, this.produtos);
     }
 }

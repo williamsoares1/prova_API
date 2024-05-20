@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import org.br.serratec.api.dtos.PedidoDTO;
 import org.br.serratec.api.entity.Pedido;
 import org.br.serratec.api.repository.PedidoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PedidoServices {
@@ -19,7 +18,7 @@ public class PedidoServices {
 
     public List<PedidoDTO> buscarTodos() {
         return repository.findAll().stream()
-                .map(p -> new PedidoDTO(p.getId(), p.getData_expedicao(), p.getId_cliente(), p.getId_produto()))
+                .map(p -> new PedidoDTO(p.getId(), p.getDataExpedicao(), p.getCliente(), p.getProdutos()))
                 .collect(Collectors.toList());
     }
 
