@@ -24,28 +24,28 @@ public class PedidoController {
     @Autowired
     private PedidoServices services;
 
-        @GetMapping
-    public ResponseEntity<List<PedidoDTO>> buscarTodos(){
+    @GetMapping
+    public ResponseEntity<List<PedidoDTO>> buscarTodos() {
         return ResponseEntity.ok(services.buscarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PedidoDTO> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<PedidoDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.of(services.buscarPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDTO> adicionar(@Valid @RequestBody PedidoDTO pedido){
+    public ResponseEntity<PedidoDTO> adicionar(@Valid @RequestBody PedidoDTO pedido) {
         return ResponseEntity.ok(services.adicionar(pedido));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PedidoDTO> atualizar(@Valid @PathVariable Long id, @RequestBody PedidoDTO dto){
+    public ResponseEntity<PedidoDTO> atualizar(@Valid @PathVariable Long id, @RequestBody PedidoDTO dto) {
         return ResponseEntity.of(services.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         return ResponseEntity.of(services.deletar(id));
     }
 

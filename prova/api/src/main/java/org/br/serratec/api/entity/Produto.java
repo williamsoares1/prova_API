@@ -14,15 +14,19 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "produto")
 public class Produto {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_produto") Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produto")
+    private Long id;
     private String nome;
     private String descricao;
     private Tipo tipo;
     private BigDecimal preco;
 
-    public Produto(){}
+    public Produto() {
+    }
 
-    public Produto(Long id, String nome, String descricao, Tipo tipo, BigDecimal preco){
+    public Produto(Long id, String nome, String descricao, Tipo tipo, BigDecimal preco) {
         super();
         this.id = id;
         this.nome = nome;
@@ -71,7 +75,7 @@ public class Produto {
         this.tipo = tipo;
     }
 
-    public ProdutoDTO toDTO(){
+    public ProdutoDTO toDTO() {
         return new ProdutoDTO(this.id, this.nome, this.descricao, this.tipo, this.preco);
     }
 }

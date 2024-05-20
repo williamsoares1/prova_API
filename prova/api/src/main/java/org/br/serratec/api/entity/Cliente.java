@@ -14,14 +14,18 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "cliente")
 public class Cliente {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_cliente") Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
+    private Long id;
     private String nome;
     private String cpf;
     private LocalDate dataNascimento;
 
-    public Cliente(){}
+    public Cliente() {
+    }
 
-    public Cliente(Long id, String nome, String cpf, LocalDate dataNascimento){
+    public Cliente(Long id, String nome, String cpf, LocalDate dataNascimento) {
         super();
         this.id = id;
         this.nome = nome;
@@ -61,7 +65,7 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public ClienteDTO toDTO(){
+    public ClienteDTO toDTO() {
         return new ClienteDTO(this.id, this.nome, this.cpf, this.dataNascimento);
     }
 }

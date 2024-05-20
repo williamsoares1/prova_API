@@ -16,26 +16,26 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_pedido") Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pedido")
+    private Long id;
     private LocalDate dataExpedicao;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "produto_pedido",
-    joinColumns = @JoinColumn(name = "id_pedido"),
-    inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    @JoinTable(name = "produto_pedido", joinColumns = @JoinColumn(name = "id_pedido"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtos;
 
-    public Pedido(){}
+    public Pedido() {
+    }
 
     public Pedido(Long id, LocalDate dataExpedicao, Cliente cliente, List<Produto> produtos) {
         super();
@@ -77,7 +77,7 @@ public class Pedido {
         this.produtos = produtos;
     }
 
-    public PedidoDTO toDTO(){
+    public PedidoDTO toDTO() {
         return new PedidoDTO(this.id, this.dataExpedicao, this.cliente, this.produtos);
     }
 }
