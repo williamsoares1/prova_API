@@ -3,6 +3,7 @@ package org.br.serratec.api.controller;
 import java.util.List;
 
 import org.br.serratec.api.dtos.PedidoDTO;
+import org.br.serratec.api.dtos.PedidoSemCadastroDTO;
 import org.br.serratec.api.services.PedidoServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDTO> adicionar(@Valid @RequestBody PedidoDTO pedido) {
+    public ResponseEntity<PedidoDTO> adicionar(@Valid @RequestBody PedidoSemCadastroDTO pedido) {
         return ResponseEntity.ok(services.adicionar(pedido));
     }
 
